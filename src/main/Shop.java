@@ -1,12 +1,12 @@
 package main;
 
 import model.Amount;
+import model.Employee;
 import model.Product;
 import model.Sale;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -22,6 +22,7 @@ public class Shop {
 	private Amount cash;
 	private ArrayList<Product> inventory;
 	private ArrayList<Sale> sales;
+	private Employee employee;
 
 	final static double TAX_RATE = 1.04;
 	final static int num = 10;
@@ -30,14 +31,17 @@ public class Shop {
 		inventory = new ArrayList<Product>();
 		sales = new ArrayList<Sale>();
 		cash = new Amount(0.0);
+		employee = new Employee("Paco",1);
 	}
 
 	public static void main(String[] args) {
 
 		Shop shop = new Shop();
 		shop.loadInventory();
-
+		shop.initSession();
+		
 		Scanner scanner = new Scanner(System.in);
+			
 		int opcion = 0;
 		boolean exit = false;
 
@@ -119,7 +123,23 @@ public class Shop {
 			}
 		} while (!exit);
 	}
+	
+	/**
+	 * initSession
+	 */
 
+	private void initSession() {
+		boolean logged = false;
+		Scanner scanner = new Scanner(System.in);
+		do {
+			System.out.print("Introduzca numero de empleado: ");
+			int user = scanner.nextInt();
+			System.out.print("Introduzca contrasenya: ");
+			String passw = scanner.next();
+			logged = employee.login(user, passw);
+		} while (!logged);
+	}
+	
 	/**
 	 * load initial inventory to shop
 	 */
