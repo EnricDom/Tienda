@@ -30,5 +30,4 @@ public class Client extends Person{
 		this.balance = balance;
 	}
 
-	
 }
