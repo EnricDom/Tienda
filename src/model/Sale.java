@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Sale {
-	private String client;
+	private Client client;
 	private ArrayList<Product> products;
 	private Date date;
 	private Amount amount;
 	
 	
-	public Sale(String client, ArrayList<Product> products, Date date, double amount) {
+	public Sale(Client client, ArrayList<Product> products, Date date, double amount) {
 		super();
 		this.client = client;
 		this.products = products;
@@ -19,10 +19,10 @@ public class Sale {
 		this.amount = new Amount(amount);
 	}
 	
-	public String getClient() {
+	public Client getClient() {
 		return client;
 	}
-	public void setClient(String client) {
+	public void setClient(Client client) {
 		this.client = client;
 	}
 	public ArrayList<Product> getProducts() {
@@ -52,7 +52,7 @@ public class Sale {
 			}
 		}
 		String formatDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(this.getDate());
-		return "Sale [client = " + client.toUpperCase() 
+		return "Sale [client = " + client.getName().toUpperCase() 
 		+ ", products =" + lista 
 		+ ", amount = " + this.amount.getValue() + " "+ this.amount.getCurrency() + ", date = " + formatDate +"]";
 	}

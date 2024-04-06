@@ -2,27 +2,27 @@ package model;
 
 public class Client extends Person{
 	
-	String memberID;
+	int memberID;
 	Amount balance;
 	
 	final int MEMBER_ID = 465;
 	final Amount BALANCE = new Amount (50.00);
 	
-	public Client(String name, String memberID, Amount balance) {
+	public Client(String name) {
 		super(name);
-		this.memberID = memberID;
-		this.balance = balance;
+		this.memberID = MEMBER_ID;
+		this.balance = BALANCE;
 	}
 
-	protected String getMemberID() {
+	protected int getMemberID() {
 		return memberID;
 	}
 
-	protected void setMemberID(String memberID) {
+	protected void setMemberID(int memberID) {
 		this.memberID = memberID;
 	}
 
-	protected Amount getBalance() {
+	public Amount getBalance() {
 		return balance;
 	}
 
@@ -30,4 +30,18 @@ public class Client extends Person{
 		this.balance = balance;
 	}
 
+	/**
+	 * pay 
+	 * 
+	 * @param amount
+	 */
+	
+	public boolean pay(Amount amount) {
+		boolean paid = false;
+		if(amount.getValue()<this.balance.getValue()) {
+			paid = true;
+		}		
+		this.balance.setValue(this.balance.getValue()-amount.getValue());
+		return paid;
+	}
 }

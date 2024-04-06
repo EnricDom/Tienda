@@ -8,9 +8,9 @@ public class Employee extends Person {
 	final String PASSWORD = "test";
 
 	
-	public Employee(String name, int employeeId) {
+	public Employee(String name) {
 		super(name);
-		this.employeeId = employeeId;
+		this.employeeId = USER;
 	}
 
 	protected int getEmployeeId() {
@@ -27,7 +27,7 @@ public class Employee extends Person {
 
 	public boolean login(int u, String p) {
 		boolean logged = false;
-		if (u == USER&&p.equalsIgnoreCase(PASSWORD)) {
+		if (u == this.employeeId&&p.equalsIgnoreCase(PASSWORD)) {
 			System.out.println("Login correcto");
 			logged = true;
 		} else {
@@ -35,6 +35,5 @@ public class Employee extends Person {
 		}
 		return logged;
 	}
-	
 
 }

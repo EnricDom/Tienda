@@ -1,6 +1,7 @@
 package main;
 
 import model.Amount;
+import model.Client;
 import model.Employee;
 import model.Product;
 import model.Sale;
@@ -25,15 +26,17 @@ public class Shop {
 	private Employee employee;
 
 	final static double TAX_RATE = 1.04;
-	final static int num = 10;
 
 	private Shop() {
 		inventory = new ArrayList<Product>();
 		sales = new ArrayList<Sale>();
 		cash = new Amount(0.0);
-		employee = new Employee("Paco",1);
+		employee = new Employee("Paco");
 	}
 
+	/**
+	 * main
+	 */
 	public static void main(String[] args) {
 
 		Shop shop = new Shop();
@@ -127,7 +130,6 @@ public class Shop {
 	/**
 	 * initSession
 	 */
-
 	private void initSession() {
 		boolean logged = false;
 		Scanner scanner = new Scanner(System.in);
@@ -146,7 +148,12 @@ public class Shop {
 	private void loadInventory() {
 
 		try {
-			File archivo = new File("/Users/manana/eclipse-workspace/dam2_m03_uf2_poo_shop2/Files/inputInventory.txt");
+			//WINDOWS
+			File archivo = new File("C:\\Users\\enric\\git\\Tienda\\Files\\inputInventory.txt");
+			
+			//MAC (corregir, al estar en git no funcionara)
+			//File archivo = new File("/Users/manana/eclipse-workspace/dam2_m03_uf2_poo_shop2/Files/inputInventory.txt");
+			
 			if (archivo.canRead()) {
 				FileReader fr = null;
 				fr = new FileReader(archivo);
@@ -270,18 +277,23 @@ public class Shop {
 	 */
 	private void sale() {
 
+		boolean paid= false;
 		// ask for client name
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Realizar venta, escribir nombre cliente: ");
-		String client = sc.nextLine();
-
-		// sale product until input name is not 0
+		String client_name = sc.nextLine();
+		Client client = new Client(client_name);
+		System.out.println();
+		
 		double totalAmount = 0.0;
+		Amount total;
 		ArrayList<Product> venta = new ArrayList<Product>();
 		Product product;
 		String name = "";
+		
+		// sale product until input name is not 0
 		while (!name.equals("0")) {
-			System.out.print("Introduce el nombre del producto, escribir 0 para terminar:");
+			System.out.print("Introduce el nombre del producto, escribir 0 para terminar: ");
 			name = sc.nextLine();
 
 			if (name.equals("0")) {
@@ -300,10 +312,12 @@ public class Shop {
 				}
 				venta.add(product);
 				System.out.println("Producto añadido con éxito");
+				System.out.println();
 			}
 
 			if (!productAvailable) {
 				System.out.println("Producto no encontrado o sin stock");
+				System.out.println();
 			}
 		}
 		// Obtenemos y guardamos la fecha del sistema
@@ -314,9 +328,19 @@ public class Shop {
 
 		// show cost total
 		totalAmount = totalAmount * TAX_RATE;
+		total = new Amount(totalAmount);
+		
+		paid = client.pay(total);
+		
 		cash.setValue(totalAmount + cash.getValue());
+		System.out.println();
 		System.out.println("Venta realizada con éxito, total: " + Math.round(totalAmount * 100.00) / 100.00 + " "
 				+ cash.getCurrency() + " Date: " + formatDate);
+		if (!paid) {
+			System.out.println("Cliente debe: "+client.getBalance());
+		} else {
+			System.out.println("Saldo restante del cliente: " +client.getBalance());
+		}
 
 		// guardamos venta
 		sales.add(new Sale(client, venta, myDate, totalAmount));
@@ -348,8 +372,13 @@ public class Shop {
 				// Aquí obtenemos el formato que deseamos
 				String formatDate = new SimpleDateFormat("yyyy-MM-dd").format(myDate);
 				
-				try (FileWriter path = new FileWriter("/Users/manana/eclipse-workspace/dam2_m03_uf2_poo_shop2/Files/sales_"+formatDate+".txt"))
-		        {
+				try {
+					//MAC (corregir, al estar en git no funcionara)
+					//FileWriter path = new FileWriter("/Users/manana/eclipse-workspace/dam2_m03_uf2_poo_shop2/Files/sales_"+formatDate+".txt");
+					
+					//WINDOWS
+					FileWriter path = new FileWriter("C:\\Users\\enric\\git\\Tienda\\Files\\sales_"+formatDate+".txt");
+					
 		            PrintWriter file = new PrintWriter(path);
 		            
 		            for (Sale sale : sales) {
@@ -372,6 +401,7 @@ public class Shop {
 					}	
 					System.out.println("");
 		            System.out.println("Ventas guardadas correctamente");
+		            file.close();
 
 		        } catch (Exception e) {
 		            e.printStackTrace();
@@ -388,7 +418,7 @@ public class Shop {
 		// ask for client name
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Buscar ventas, escribir nombre cliente: ");
-		String client = sc.nextLine();
+		String client_name = sc.nextLine();
 		boolean encontrado = false;
 
 		while (true) {
@@ -399,7 +429,7 @@ public class Shop {
 
 				for (Sale sale : sales) {
 					if (sale != null) {
-						if (sale.getClient().equalsIgnoreCase(client)) {
+						if (sale.getClient().getName().equalsIgnoreCase(client_name)) {
 							encontrado = true;
 							break;
 						}
@@ -413,7 +443,7 @@ public class Shop {
 						System.out.println("Lista de ventas:");
 						for (Sale sale : sales) {
 							if (sale != null) {
-								if (sale.getClient().equalsIgnoreCase(client)) {
+								if (sale.getClient().getName().equalsIgnoreCase(client_name)) {
 									System.out.println(sale);
 								}
 							}
@@ -456,9 +486,7 @@ public class Shop {
 				return product;
 			}
 		}
-
 		return null;
-
 	}
 
 }
