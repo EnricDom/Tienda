@@ -1,3 +1,0 @@
-1;Cliente=enric;Date=06-04-2024 07:55:21;
-1;Products=Manzana,10.0€;Manzana,10.0€;
-1;Amount=41.6;

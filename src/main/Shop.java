@@ -148,11 +148,12 @@ public class Shop {
 	private void loadInventory() {
 
 		try {
-			//WINDOWS
-			File archivo = new File("C:\\Users\\enric\\git\\Tienda\\Files\\inputInventory.txt");
-			
-			//MAC (corregir, al estar en git no funcionara)
-			//File archivo = new File("/Users/manana/eclipse-workspace/dam2_m03_uf2_poo_shop2/Files/inputInventory.txt");
+
+			String rutaArchivo = "Files" + File.separator + "inputInventory.txt";
+			File txt = new File(rutaArchivo);
+			String rutaAbsoluta = txt.getAbsolutePath();
+			System.out.println("Ruta absoluta del archivo: " + rutaAbsoluta);
+			File archivo = new File(rutaAbsoluta);
 			
 			if (archivo.canRead()) {
 				FileReader fr = null;
@@ -170,6 +171,7 @@ public class Shop {
 
 					linea = br.readLine();
 				}
+				br.close();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -373,13 +375,13 @@ public class Shop {
 				String formatDate = new SimpleDateFormat("yyyy-MM-dd").format(myDate);
 				
 				try {
-					//MAC (corregir, al estar en git no funcionara)
-					//FileWriter path = new FileWriter("/Users/manana/eclipse-workspace/dam2_m03_uf2_poo_shop2/Files/sales_"+formatDate+".txt");
+
+					String rutaArchivo = "Files" + File.separator + "sales_" + formatDate + ".txt\"";
+					File txt = new File(rutaArchivo);
+					String rutaAbsoluta = txt.getAbsolutePath();
+					System.out.println("Ruta absoluta del archivo: " + rutaAbsoluta);
 					
-					//WINDOWS
-					FileWriter path = new FileWriter("C:\\Users\\enric\\git\\Tienda\\Files\\sales_"+formatDate+".txt");
-					
-		            PrintWriter file = new PrintWriter(path);
+		            PrintWriter file = new PrintWriter(rutaAbsoluta);
 		            
 		            for (Sale sale : sales) {
 						if (sale != null) {
