@@ -152,7 +152,7 @@ public class Shop {
 			String rutaArchivo = "Files" + File.separator + "inputInventory.txt";
 			File txt = new File(rutaArchivo);
 			String rutaAbsoluta = txt.getAbsolutePath();
-			System.out.println("Ruta absoluta del archivo: " + rutaAbsoluta);
+			
 			File archivo = new File(rutaAbsoluta);
 			
 			if (archivo.canRead()) {
@@ -379,7 +379,6 @@ public class Shop {
 					String rutaArchivo = "Files" + File.separator + "sales_" + formatDate + ".txt\"";
 					File txt = new File(rutaArchivo);
 					String rutaAbsoluta = txt.getAbsolutePath();
-					System.out.println("Ruta absoluta del archivo: " + rutaAbsoluta);
 					
 		            PrintWriter file = new PrintWriter(rutaAbsoluta);
 		            
