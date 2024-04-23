@@ -1,12 +1,13 @@
 package model;
 
-public class Employee extends Person {
+import main.Logable;
+
+public class Employee extends Person implements Logable{
 	
 
 	int employeeId;
-	final int USER = 123;
-	final String PASSWORD = "test";
-
+	final static int USER = 123;
+	final static String PASSWORD = "test";
 	
 	public Employee(String name) {
 		super(name);
@@ -20,14 +21,11 @@ public class Employee extends Person {
 	protected void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
 	}
-	
-	/**
-	 * login 
-	 */
 
-	public boolean login(int u, String p) {
+	@Override
+	public boolean login(int user, String password) {
 		boolean logged = false;
-		if (u == this.employeeId&&p.equalsIgnoreCase(PASSWORD)) {
+		if (user == USER && password.equalsIgnoreCase(PASSWORD)) {
 			System.out.println("Login correcto");
 			logged = true;
 		} else {
@@ -35,5 +33,8 @@ public class Employee extends Person {
 		}
 		return logged;
 	}
+	
 
+	
+	
 }

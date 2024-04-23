@@ -1,6 +1,7 @@
 package model;
+import main.Payable;
 
-public class Client extends Person{
+public class Client extends Person implements Payable {
 	
 	int memberID;
 	Amount balance;
@@ -30,12 +31,7 @@ public class Client extends Person{
 		this.balance = balance;
 	}
 
-	/**
-	 * pay 
-	 * 
-	 * @param amount
-	 */
-	
+	@Override
 	public boolean pay(Amount amount) {
 		boolean paid = false;
 		if(amount.getValue()<this.balance.getValue()) {
@@ -44,4 +40,6 @@ public class Client extends Person{
 		this.balance.setValue(this.balance.getValue()-amount.getValue());
 		return paid;
 	}
+
+
 }
