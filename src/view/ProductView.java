@@ -29,8 +29,6 @@ public class ProductView extends JDialog implements ActionListener{
 	private JTextField productStock;
 	private JTextField productPrice;
 	
-	private Shop shop;
-	private int option;
 
 	/**
 	 * Launch the application.
@@ -55,8 +53,7 @@ public class ProductView extends JDialog implements ActionListener{
 	 * @param shop 
 	 */
 	public ProductView(Shop shop, int option) {
-		this.shop = shop;
-		this.option = option;
+
 		
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
@@ -84,7 +81,6 @@ public class ProductView extends JDialog implements ActionListener{
 					        JOptionPane.showMessageDialog(null, "Producto añadido correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
 	
 			                dispose();
-			                ShopView.main(null);
 							
 						} else {
 				            JOptionPane.showMessageDialog(ProductView.this, "El producto con nombre " + name + " ya existe en el inventario", "Error", JOptionPane.ERROR_MESSAGE);
@@ -102,7 +98,6 @@ public class ProductView extends JDialog implements ActionListener{
 					        JOptionPane.showMessageDialog(null, "El stock del producto " + name + " ha sido actualizado a " + product.getStock(), "Información", JOptionPane.INFORMATION_MESSAGE);
 	
 			                dispose();
-			                ShopView.main(null);
 	
 						} else {
 				            JOptionPane.showMessageDialog(ProductView.this, "No se ha encontrado el producto con nombre " + name, "Error", JOptionPane.ERROR_MESSAGE);
@@ -118,7 +113,6 @@ public class ProductView extends JDialog implements ActionListener{
 					        JOptionPane.showMessageDialog(null, "El producto con nombre " + name + " se ha eliminado", "Información", JOptionPane.INFORMATION_MESSAGE);
 	
 			                dispose();
-			                ShopView.main(null);
 						} else {
 				            JOptionPane.showMessageDialog(ProductView.this, "No se ha encontrado el producto con nombre " + name, "Error", JOptionPane.ERROR_MESSAGE);
 						}
@@ -136,7 +130,6 @@ public class ProductView extends JDialog implements ActionListener{
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
                 dispose();
-                ShopView.main(null);
 			}
 		});
 		cancelButton.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -206,7 +199,6 @@ public class ProductView extends JDialog implements ActionListener{
             public void windowClosing(WindowEvent e) {
 
                 dispose();
-                ShopView.main(null);
             }
         });
 		

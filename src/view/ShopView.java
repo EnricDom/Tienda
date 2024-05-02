@@ -44,14 +44,13 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 	 * Create the frame.
 	 */
 	public ShopView() {
-		this.addKeyListener(this);
 
 		shop = new Shop();
 		shop.loadInventory();
 		
 		setTitle("MiTienda.com - Menu Principal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 455, 382);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 15));
 
@@ -64,57 +63,73 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		contentPane.add(lblNewLabel);
 		
 		//OPCION o BOTON 1
-		JButton btnNewButton = new JButton("1. Contar caja");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton option_1_Boton = new JButton("1. Contar caja");
+		option_1_Boton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
             	openCashView(shop);
 			}
 		});
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton.setBounds(57, 60, 262, 36);
-		contentPane.add(btnNewButton);
-		btnNewButton.addKeyListener(this);
+		option_1_Boton.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		option_1_Boton.setHorizontalAlignment(SwingConstants.LEFT);
+		option_1_Boton.setBounds(57, 60, 262, 36);
+		contentPane.add(option_1_Boton);
+		option_1_Boton.addKeyListener(this);
 		
 		//OPCION o BOTON 2
-		JButton btnNewButton_1 = new JButton("2. Añadir producto");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton option_2_Boton = new JButton("2. Añadir producto");
+		option_2_Boton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
             	openProductView(shop,2);
 			}
 		});
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnNewButton_1.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton_1.setBounds(57, 107, 262, 36);
-		contentPane.add(btnNewButton_1);
-		btnNewButton_1.addKeyListener(this);
+		option_2_Boton.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		option_2_Boton.setHorizontalAlignment(SwingConstants.LEFT);
+		option_2_Boton.setBounds(57, 107, 262, 36);
+		contentPane.add(option_2_Boton);
+		option_2_Boton.addKeyListener(this);
 		
 		//OPCION o BOTON 3
-		JButton btnNewButton_2 = new JButton("3. Añadir stock");
-		btnNewButton_2.addActionListener(new ActionListener() {
+		JButton option_3_Boton = new JButton("3. Añadir stock");
+		option_3_Boton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
             	openProductView(shop,3);
 				
 			}
 		});
-		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnNewButton_2.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton_2.setBounds(57, 154, 262, 36);
-		contentPane.add(btnNewButton_2);
-		btnNewButton_2.addKeyListener(this);
+		option_3_Boton.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		option_3_Boton.setHorizontalAlignment(SwingConstants.LEFT);
+		option_3_Boton.setBounds(57, 154, 262, 36);
+		contentPane.add(option_3_Boton);
+		option_3_Boton.addKeyListener(this);
+		
+		//OPCION o BOTON 5
+		JButton option_4_Boton = new JButton("5. Mostrar inventario");
+		option_4_Boton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				openInventoryView(shop);
+			}
+		});
+		option_4_Boton.setHorizontalAlignment(SwingConstants.LEFT);
+		option_4_Boton.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		option_4_Boton.setBounds(57, 201, 262, 36);
+		contentPane.add(option_4_Boton);
+		option_4_Boton.addKeyListener(this);
+		
+		
 		
 		//OPCION o BOTON 9
-		JButton btnNewButton_3 = new JButton("9. Eliminar producto");
-		btnNewButton_3.addActionListener(new ActionListener() {
+		JButton option_9_Boton = new JButton("9. Eliminar producto");
+		option_9_Boton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
             	openProductView(shop,9);
 			}
 		});
-		btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnNewButton_3.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton_3.setBounds(57, 201, 262, 36);
-		contentPane.add(btnNewButton_3);
-		btnNewButton_3.addKeyListener(this);
+		option_9_Boton.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		option_9_Boton.setHorizontalAlignment(SwingConstants.LEFT);
+		option_9_Boton.setBounds(57, 248, 262, 36);
+		contentPane.add(option_9_Boton);
+		option_9_Boton.addKeyListener(this);
+		
 	}
 
 	@Override
@@ -139,6 +154,10 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
                 
             case '3':
             	openProductView(shop,3);
+                break;
+            
+            case '5':
+            	openInventoryView(shop);
                 break;
                 
             case '9':
@@ -167,13 +186,15 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 	public void openCashView(Shop shop) {
 		CashView cashView = new CashView(shop);
 		cashView.setVisible(true);
-		this.setVisible(false);
 	}
 	
 	public void openProductView(Shop shop, int option) {
 		ProductView productView = new ProductView(shop, option);
 		productView.setVisible(true);
-		this.setVisible(false);
 	}
-
+	
+	public void openInventoryView(Shop shop) {
+		InventoryView inventoryView = new InventoryView(shop);
+		inventoryView.setVisible(true);
+	}
 }

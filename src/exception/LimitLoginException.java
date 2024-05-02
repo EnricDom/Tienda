@@ -5,4 +5,6 @@ public class LimitLoginException extends Exception{
     public LimitLoginException(String message) {
         super(message);
     }
+    
+    
 }

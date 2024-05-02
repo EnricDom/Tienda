@@ -70,7 +70,6 @@ public class CashView extends JDialog {
             public void windowClosing(WindowEvent e) {
 
                 dispose();
-                ShopView.main(null);
             }
         });
 	}
