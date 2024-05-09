@@ -120,6 +120,7 @@ public class LoginView extends JFrame implements ActionListener, KeyListener{
 	}
 	
 	public void loggin() {
+		counterLoggin++;
 		if (counterLoggin<3) {
 			Employee employee = new Employee("Paco");
 			int user_id = 0;
@@ -127,6 +128,7 @@ public class LoginView extends JFrame implements ActionListener, KeyListener{
 			    user_id = Integer.parseInt(employeeId.getText());
 			} catch (NumberFormatException error) {
 			    System.out.println("Error: El número de empleao no es un número válido.");
+			    employeeId.setText("");
 			}
 
 			String user_psw = employeePsw.getText();
@@ -140,8 +142,9 @@ public class LoginView extends JFrame implements ActionListener, KeyListener{
 			} else {
 				System.out.println("Mostrar login incorrecto como JOptionPane");
 			    JOptionPane.showMessageDialog(LoginView.this, "Usuario o password incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+			    employeeId.setText("");
+			    employeePsw.setText("");
 			}
-			counterLoggin++;
 		} else {
 			try {
                 throw new LimitLoginException("Error loggin: superados los 3 intentos");

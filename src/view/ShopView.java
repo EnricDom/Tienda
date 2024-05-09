@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import main.Shop;
+import utils.Constants;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -79,7 +80,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		JButton option_2_Boton = new JButton("2. Añadir producto");
 		option_2_Boton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-            	openProductView(shop,2);
+            	openProductView(shop,Constants.OPTION_ADD_PRODUCT);
 			}
 		});
 		option_2_Boton.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -92,7 +93,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		JButton option_3_Boton = new JButton("3. Añadir stock");
 		option_3_Boton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-            	openProductView(shop,3);
+            	openProductView(shop,Constants.OPTION_ADD_STOCK);
 				
 			}
 		});
@@ -121,7 +122,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		JButton option_9_Boton = new JButton("9. Eliminar producto");
 		option_9_Boton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-            	openProductView(shop,9);
+            	openProductView(shop,Constants.OPTION_DELETE_PRODUCT);
 			}
 		});
 		option_9_Boton.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -149,11 +150,11 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
                 break;
                 
             case '2':
-            	openProductView(shop,2);
+            	openProductView(shop,Constants.OPTION_ADD_PRODUCT);
                 break;
                 
             case '3':
-            	openProductView(shop,3);
+            	openProductView(shop,Constants.OPTION_ADD_STOCK);
                 break;
             
             case '5':
@@ -161,7 +162,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
                 break;
                 
             case '9':
-            	openProductView(shop,9);
+            	openProductView(shop,Constants.OPTION_DELETE_PRODUCT);
                 break;
                 
             default:
