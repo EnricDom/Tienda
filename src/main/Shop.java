@@ -12,11 +12,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import exception.EmployeeNotFoundException;
+import exception.InvalidPasswordException;
 
 public class Shop {
 
@@ -27,17 +31,18 @@ public class Shop {
 
 	final static double TAX_RATE = 1.04;
 
-	public Shop() {
+	public Shop() throws SQLException {
 		inventory = new ArrayList<Product>();
 		sales = new ArrayList<Sale>();
 		cash = new Amount(0.0);
-		employee = new Employee("Paco");
+		employee = new Employee(null, 0, null);
 	}
 
 	/**
 	 * main
+	 * @throws SQLException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 
 		Shop shop = new Shop();
 		shop.loadInventory();
@@ -129,17 +134,25 @@ public class Shop {
 	
 	/**
 	 * initSession
+	 * @throws SQLException 
 	 */
-	private void initSession() {
+	private void initSession() throws SQLException {
 		boolean logged = false;
+		employee.dao.connect();
 		Scanner scanner = new Scanner(System.in);
 		do {
 			System.out.print("Introduzca numero de empleado: ");
 			int user = scanner.nextInt();
 			System.out.print("Introduzca contrasenya: ");
 			String passw = scanner.next();
-			logged = employee.login(user, passw);
+			try {
+				employee = employee.dao.getEmployee(user, passw);
+				logged = employee.login(employee.getEmployeeId(), employee.getPassword());
+			} catch (EmployeeNotFoundException | InvalidPasswordException e) {
+				System.out.println("Login incorrecto");
+			}
 		} while (!logged);
+		employee.dao.disconnect();
 	}
 	
 	/**

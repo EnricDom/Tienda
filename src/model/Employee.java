@@ -1,40 +1,52 @@
 package model;
 
+
+import java.sql.SQLException;
+
+import dao.Dao;
+import dao.DaoImplJDBC;
 import main.Logable;
 
 public class Employee extends Person implements Logable{
 	
 
-	int employeeId;
-	final static int USER = 123;
-	final static String PASSWORD = "test";
+	public int employeeId;
+	public Dao dao;
+	public String password;
 	
-	public Employee(String name) {
+	public Employee(String name, int id, String password) throws SQLException {
 		super(name);
-		this.employeeId = USER;
+		this.employeeId = id;
+		this.password = password;
+		this.dao = new DaoImplJDBC();
+		this.dao.connect();
 	}
 
-	protected int getEmployeeId() {
+	public int getEmployeeId() {
 		return employeeId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	protected void setPassword(String password) {
+		this.password = password;
 	}
 
 	protected void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
 	}
+	
 
 	@Override
-	public boolean login(int user, String password) {
+	public boolean login(int id_user, String password) {
 		boolean logged = false;
-		if (user == USER && password.equalsIgnoreCase(PASSWORD)) {
+		
+		if (id_user == this.employeeId && password.equalsIgnoreCase(this.password)) {
 			System.out.println("Login correcto");
 			logged = true;
-		} else {
-			System.out.println("Login incorrecto");
-		}
+		} 		
 		return logged;
 	}
-	
-
-	
-	
 }
