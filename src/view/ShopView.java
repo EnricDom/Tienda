@@ -46,7 +46,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 	 * Create the frame.
 	 * @throws SQLException 
 	 */
-	public ShopView() throws SQLException {
+	public ShopView() {
 
 		shop = new Shop();
 		shop.loadInventory();

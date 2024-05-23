@@ -31,7 +31,7 @@ public class Shop {
 
 	final static double TAX_RATE = 1.04;
 
-	public Shop() throws SQLException {
+	public Shop() {
 		inventory = new ArrayList<Product>();
 		sales = new ArrayList<Sale>();
 		cash = new Amount(0.0);
@@ -42,7 +42,7 @@ public class Shop {
 	 * main
 	 * @throws SQLException 
 	 */
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) {
 
 		Shop shop = new Shop();
 		shop.loadInventory();
@@ -136,7 +136,7 @@ public class Shop {
 	 * initSession
 	 * @throws SQLException 
 	 */
-	private void initSession() throws SQLException {
+	private void initSession() {
 		boolean logged = false;
 		Scanner scanner = new Scanner(System.in);
 		do {

@@ -16,12 +16,11 @@ public class Employee extends Person implements Logable{
 	public Dao dao;
 	public String password;
 	
-	public Employee(String name, int id, String password) throws SQLException {
+	public Employee(String name, int id, String password) {
 		super(name);
 		this.employeeId = id;
 		this.password = password;
 		this.dao = new DaoImplJDBC();
-		this.dao.connect();
 	}
 
 	protected int getEmployeeId() {

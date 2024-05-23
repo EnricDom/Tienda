@@ -82,12 +82,7 @@ public class LoginView extends JFrame implements ActionListener, KeyListener{
 		JButton btnNewButton = new JButton("Acceder");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					loggin();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				loggin();
 			}
 		});
 		
@@ -117,12 +112,7 @@ public class LoginView extends JFrame implements ActionListener, KeyListener{
         char key = e.getKeyChar();
         System.out.println(key);
         if(key=='\n'){
-        	try {
-				loggin();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+        	loggin();
         }
 	}
 
@@ -132,10 +122,10 @@ public class LoginView extends JFrame implements ActionListener, KeyListener{
 		
 	}
 	
-	public void loggin() throws SQLException {
+	public void loggin() {
 		counterLoggin++;
 		if (counterLoggin<3) {
-			Employee employee = new Employee(null, 0, null);
+
 			int user_id = 0;
 			try {
 			    user_id = Integer.parseInt(employeeId.getText());
@@ -146,6 +136,8 @@ public class LoginView extends JFrame implements ActionListener, KeyListener{
 
 			String user_psw = employeePsw.getText();
 			boolean logged = false;
+			
+			Employee employee = new Employee(null, user_id, user_psw);
 			logged = employee.login(user_id, user_psw);
 			
 			if (logged) {
