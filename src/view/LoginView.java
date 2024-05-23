@@ -136,7 +136,6 @@ public class LoginView extends JFrame implements ActionListener, KeyListener{
 		counterLoggin++;
 		if (counterLoggin<3) {
 			Employee employee = new Employee(null, 0, null);
-			employee.dao.connect();
 			int user_id = 0;
 			try {
 			    user_id = Integer.parseInt(employeeId.getText());
@@ -147,23 +146,19 @@ public class LoginView extends JFrame implements ActionListener, KeyListener{
 
 			String user_psw = employeePsw.getText();
 			boolean logged = false;
-			try {
-				employee = employee.dao.getEmployee(user_id, user_psw);
-				logged = employee.login(employee.getEmployeeId(), employee.getPassword());
-			} catch (EmployeeNotFoundException | InvalidPasswordException e) {
-				System.out.println("Mostrar login incorrecto como JOptionPane");
-			    JOptionPane.showMessageDialog(LoginView.this, "Usuario o password incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
-			    employeeId.setText("");
-			    employeePsw.setText("");
-			}
+			logged = employee.login(user_id, user_psw);
 			
 			if (logged) {
 				System.out.println("Mostrar ventana ShopView");
 				LoginView.this.setVisible(false);
 				ShopView shopView = new ShopView();
 				shopView.setVisible(true);
-			} 
-			employee.dao.disconnect();
+			}  else {
+				System.out.println("Mostrar login incorrecto como JOptionPane");
+			    JOptionPane.showMessageDialog(LoginView.this, "Usuario o password incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+			    employeeId.setText("");
+			    employeePsw.setText("");
+			}
 		} else {
 			try {
                 throw new LimitLoginException("Error loggin: superados los 3 intentos");

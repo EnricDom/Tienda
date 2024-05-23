@@ -5,6 +5,8 @@ import java.sql.SQLException;
 
 import dao.Dao;
 import dao.DaoImplJDBC;
+import exception.EmployeeNotFoundException;
+import exception.InvalidPasswordException;
 import main.Logable;
 
 public class Employee extends Person implements Logable{
@@ -22,11 +24,11 @@ public class Employee extends Person implements Logable{
 		this.dao.connect();
 	}
 
-	public int getEmployeeId() {
+	protected int getEmployeeId() {
 		return employeeId;
 	}
 
-	public String getPassword() {
+	protected String getPassword() {
 		return password;
 	}
 
@@ -42,11 +44,18 @@ public class Employee extends Person implements Logable{
 	@Override
 	public boolean login(int id_user, String password) {
 		boolean logged = false;
-		
-		if (id_user == this.employeeId && password.equalsIgnoreCase(this.password)) {
-			System.out.println("Login correcto");
-			logged = true;
-		} 		
+		Employee employeeConsulta = null;
+		try {
+			dao.connect();
+			employeeConsulta = dao.getEmployee(id_user, password);
+			if (id_user == employeeConsulta.getEmployeeId() && password.equalsIgnoreCase(employeeConsulta.getPassword())) {
+				System.out.println("Login correcto");
+				logged = true;
+			}
+			dao.disconnect();
+		} catch (EmployeeNotFoundException | InvalidPasswordException | SQLException e) {
+			System.out.println("Login incorrecto");
+		} 
 		return logged;
 	}
 }

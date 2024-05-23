@@ -138,21 +138,14 @@ public class Shop {
 	 */
 	private void initSession() throws SQLException {
 		boolean logged = false;
-		employee.dao.connect();
 		Scanner scanner = new Scanner(System.in);
 		do {
 			System.out.print("Introduzca numero de empleado: ");
 			int user = scanner.nextInt();
 			System.out.print("Introduzca contrasenya: ");
 			String passw = scanner.next();
-			try {
-				employee = employee.dao.getEmployee(user, passw);
-				logged = employee.login(employee.getEmployeeId(), employee.getPassword());
-			} catch (EmployeeNotFoundException | InvalidPasswordException e) {
-				System.out.println("Login incorrecto");
-			}
+			logged = employee.login(user, passw);
 		} while (!logged);
-		employee.dao.disconnect();
 	}
 	
 	/**

@@ -53,14 +53,14 @@ public class InventoryView extends JDialog {
         for (int i = 0; i < shop.inventory.size(); i++) {
             Product product = shop.inventory.get(i);
             data[i][0] = product.getName();
-            data[i][1] = product.getPublicPrice();
-            data[i][2] = product.getWholesalerPrice();
+            data[i][1] = product.getPublicPrice() + " " + shop.cash.getCurrency();
+            data[i][2] = product.getWholesalerPrice() + " " + shop.cash.getCurrency();
             data[i][3] = product.isAvailable();
-            data[i][4] = product.getStock();
+            data[i][4] = product.getStock() + " uds";
         }
 
         // Crear un modelo de tabla
-        String[] columnNames = {"Nombre", "Precio Público", "Precio Mayorista", "Disponible", "Stock"};
+        String[] columnNames = {"Nombre", "Precio Público", "Precio Mayorista " + shop.cash.getCurrency(), "Disponible", "Stock"};
         DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
 
         // Crear la tabla con el modelo de tabla
