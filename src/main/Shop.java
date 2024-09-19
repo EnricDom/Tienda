@@ -20,14 +20,14 @@ import java.util.Scanner;
 
 public class Shop {
 
-	private Amount cash;
-	private ArrayList<Product> inventory;
+	public Amount cash;
+	public ArrayList<Product> inventory;
 	private ArrayList<Sale> sales;
 	private Employee employee;
 
 	final static double TAX_RATE = 1.04;
 
-	private Shop() {
+	public Shop() {
 		inventory = new ArrayList<Product>();
 		sales = new ArrayList<Sale>();
 		cash = new Amount(0.0);
@@ -145,7 +145,7 @@ public class Shop {
 	/**
 	 * load initial inventory to shop
 	 */
-	private void loadInventory() {
+	public void loadInventory() {
 
 		try {
 
@@ -181,7 +181,7 @@ public class Shop {
 	/**
 	 * show current total cash
 	 */
-	private void showCash() {
+	public void showCash() {
 		System.out
 				.println("Dinero actual: " + cash.getValue() + " " + cash.getCurrency());
 	}
@@ -189,7 +189,7 @@ public class Shop {
 	/**
 	 * add a new product to inventory getting data from console
 	 */
-	private void addProduct() {
+	public void addProduct() {
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("Nombre: ");
 		String name = scanner.nextLine();
@@ -480,7 +480,7 @@ public class Shop {
 	 * 
 	 * @param product name
 	 */
-	private Product findProduct(String name) {
+	public Product findProduct(String name) {
 
 		for (Product product : inventory) {
 			if (product.getName().equalsIgnoreCase(name)) {
