@@ -5,11 +5,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import exception.EmployeeNotFoundException;
+import exception.InvalidPasswordException;
 import exception.LimitLoginException;
 
 import javax.swing.JLabel;
@@ -122,7 +125,7 @@ public class LoginView extends JFrame implements ActionListener, KeyListener{
 	public void loggin() {
 		counterLoggin++;
 		if (counterLoggin<3) {
-			Employee employee = new Employee("Paco");
+
 			int user_id = 0;
 			try {
 			    user_id = Integer.parseInt(employeeId.getText());
@@ -132,14 +135,17 @@ public class LoginView extends JFrame implements ActionListener, KeyListener{
 			}
 
 			String user_psw = employeePsw.getText();
-			boolean logged = employee.login(user_id, user_psw);
+			boolean logged = false;
+			
+			Employee employee = new Employee(null, user_id, user_psw);
+			logged = employee.login(user_id, user_psw);
 			
 			if (logged) {
 				System.out.println("Mostrar ventana ShopView");
 				LoginView.this.setVisible(false);
 				ShopView shopView = new ShopView();
 				shopView.setVisible(true);
-			} else {
+			}  else {
 				System.out.println("Mostrar login incorrecto como JOptionPane");
 			    JOptionPane.showMessageDialog(LoginView.this, "Usuario o password incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
 			    employeeId.setText("");

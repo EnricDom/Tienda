@@ -12,11 +12,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import exception.EmployeeNotFoundException;
+import exception.InvalidPasswordException;
 
 public class Shop {
 
@@ -31,11 +35,12 @@ public class Shop {
 		inventory = new ArrayList<Product>();
 		sales = new ArrayList<Sale>();
 		cash = new Amount(0.0);
-		employee = new Employee("Paco");
+		employee = new Employee(null, 0, null);
 	}
 
 	/**
 	 * main
+	 * @throws SQLException 
 	 */
 	public static void main(String[] args) {
 
@@ -129,6 +134,7 @@ public class Shop {
 	
 	/**
 	 * initSession
+	 * @throws SQLException 
 	 */
 	private void initSession() {
 		boolean logged = false;
