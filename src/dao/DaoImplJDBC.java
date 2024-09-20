@@ -1,11 +1,14 @@
 package dao;
 
 import model.Employee;
+import model.Product;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import exception.EmployeeNotFoundException;
 import exception.InvalidPasswordException;
@@ -68,6 +71,18 @@ public class DaoImplJDBC implements Dao{
             }
         }
 		
+	}
+
+	@Override
+	public ArrayList<Product> getInventory() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean writeInventory(ArrayList<Product> lista) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

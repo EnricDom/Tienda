@@ -19,15 +19,19 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import dao.Dao;
+import dao.DaoImplFile;
+import dao.DaoImplJDBC;
 import exception.EmployeeNotFoundException;
 import exception.InvalidPasswordException;
 
 public class Shop {
 
 	public Amount cash;
-	public ArrayList<Product> inventory;
+	public static ArrayList<Product> inventory;
 	private ArrayList<Sale> sales;
 	private Employee employee;
+	public Dao dao;
 
 	final static double TAX_RATE = 1.04;
 
@@ -36,6 +40,7 @@ public class Shop {
 		sales = new ArrayList<Sale>();
 		cash = new Amount(0.0);
 		employee = new Employee(null, 0, null);
+		dao = new DaoImplFile();
 	}
 
 	/**
@@ -45,7 +50,7 @@ public class Shop {
 	public static void main(String[] args) {
 
 		Shop shop = new Shop();
-		shop.loadInventory();
+		inventory = shop.dao.getInventory();
 		shop.initSession();
 		
 		Scanner scanner = new Scanner(System.in);
@@ -58,6 +63,7 @@ public class Shop {
 			System.out.println("===========================");
 			System.out.println("Menu principal miTienda.com");
 			System.out.println("===========================");
+			System.out.println("0) Exportar inventario");
 			System.out.println("1) Contar caja");
 			System.out.println("2) Añadir producto");
 			System.out.println("3) Añadir stock");
@@ -80,6 +86,15 @@ public class Shop {
 			System.out.println("\n");
 
 			switch (opcion) {
+			
+			case 0:
+				if(shop.dao.writeInventory(inventory)) {
+		            System.out.println("Inventario exportando correctamente");
+				} else {
+		            System.out.println("Error exportando el inventario");
+				}
+				break;
+			
 			case 1:
 				shop.showCash();
 				break;
@@ -146,42 +161,6 @@ public class Shop {
 			String passw = scanner.next();
 			logged = employee.login(user, passw);
 		} while (!logged);
-	}
-	
-	/**
-	 * load initial inventory to shop
-	 */
-	public void loadInventory() {
-
-		try {
-
-			String rutaArchivo = "Files" + File.separator + "inputInventory.txt";
-			File txt = new File(rutaArchivo);
-			String rutaAbsoluta = txt.getAbsolutePath();
-			
-			File archivo = new File(rutaAbsoluta);
-			
-			if (archivo.canRead()) {
-				FileReader fr = null;
-				fr = new FileReader(archivo);
-				BufferedReader br = new BufferedReader(fr);
-				String linea = br.readLine();
-
-				while (linea != null) {
-					String[] parts = linea.split(";");
-					String[] productName = parts[0].split(":");
-					String[] productPrice = parts[1].split(":");
-					String[] productStock = parts[2].split(":");
-					inventory.add(new Product(productName[1], Double.parseDouble(productPrice[1]), true,
-							Integer.parseInt(productStock[1])));
-
-					linea = br.readLine();
-				}
-				br.close();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	/**

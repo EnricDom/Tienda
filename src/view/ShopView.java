@@ -15,6 +15,7 @@ import main.Shop;
 import utils.Constants;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -49,7 +50,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 	public ShopView() {
 
 		shop = new Shop();
-		shop.loadInventory();
+		shop.inventory = shop.dao.getInventory();
 		
 		setTitle("MiTienda.com - Menu Principal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -65,6 +66,18 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		lblNewLabel.setBounds(39, 29, 262, 20);
 		contentPane.add(lblNewLabel);
 		
+		//OPCION o BOTON 0
+		JButton option_0_Boton = new JButton("0. Exportar inventario");
+		option_0_Boton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				writeInventory(shop);
+			}
+		});
+		option_0_Boton.setHorizontalAlignment(SwingConstants.LEFT);
+		option_0_Boton.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		option_0_Boton.setBounds(55, 60, 262, 36);
+		contentPane.add(option_0_Boton);
+		
 		//OPCION o BOTON 1
 		JButton option_1_Boton = new JButton("1. Contar caja");
 		option_1_Boton.addActionListener(new ActionListener() {
@@ -74,7 +87,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		});
 		option_1_Boton.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		option_1_Boton.setHorizontalAlignment(SwingConstants.LEFT);
-		option_1_Boton.setBounds(57, 60, 262, 36);
+		option_1_Boton.setBounds(55, 108, 262, 36);
 		contentPane.add(option_1_Boton);
 		option_1_Boton.addKeyListener(this);
 		
@@ -87,7 +100,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		});
 		option_2_Boton.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		option_2_Boton.setHorizontalAlignment(SwingConstants.LEFT);
-		option_2_Boton.setBounds(57, 107, 262, 36);
+		option_2_Boton.setBounds(55, 155, 262, 36);
 		contentPane.add(option_2_Boton);
 		option_2_Boton.addKeyListener(this);
 		
@@ -101,7 +114,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		});
 		option_3_Boton.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		option_3_Boton.setHorizontalAlignment(SwingConstants.LEFT);
-		option_3_Boton.setBounds(57, 154, 262, 36);
+		option_3_Boton.setBounds(55, 202, 262, 36);
 		contentPane.add(option_3_Boton);
 		option_3_Boton.addKeyListener(this);
 		
@@ -114,7 +127,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		});
 		option_4_Boton.setHorizontalAlignment(SwingConstants.LEFT);
 		option_4_Boton.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		option_4_Boton.setBounds(57, 201, 262, 36);
+		option_4_Boton.setBounds(55, 249, 262, 36);
 		contentPane.add(option_4_Boton);
 		option_4_Boton.addKeyListener(this);
 		
@@ -129,7 +142,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		});
 		option_9_Boton.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		option_9_Boton.setHorizontalAlignment(SwingConstants.LEFT);
-		option_9_Boton.setBounds(57, 248, 262, 36);
+		option_9_Boton.setBounds(55, 296, 262, 36);
 		contentPane.add(option_9_Boton);
 		option_9_Boton.addKeyListener(this);
 		
@@ -147,6 +160,11 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
         char key = e.getKeyChar();
         
         switch (key) {
+        	
+        	case '0':
+        		writeInventory(shop);
+        		break;
+        	
             case '1':
             	openCashView(shop);
                 break;
@@ -199,5 +217,13 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 	public void openInventoryView(Shop shop) {
 		InventoryView inventoryView = new InventoryView(shop);
 		inventoryView.setVisible(true);
+	}
+	
+	public void writeInventory(Shop shop) {
+		if(shop.dao.writeInventory(shop.inventory)) {
+			JOptionPane.showMessageDialog(null, "Inventario exportado correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog(ShopView.this, "Error exportando el inventario", "Error", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }

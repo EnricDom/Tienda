@@ -1,17 +1,23 @@
 package dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import exception.EmployeeNotFoundException;
 import exception.InvalidPasswordException;
 import model.Employee;
+import model.Product;
 
 public interface Dao {
 	
-    void connect() throws SQLException;
+    public void connect() throws SQLException;
     
-    Employee getEmployee(int employeeId, String password) throws EmployeeNotFoundException, InvalidPasswordException;
+    public Employee getEmployee(int employeeId, String password) throws EmployeeNotFoundException, InvalidPasswordException;
     
-    void disconnect();
+    public void disconnect();
+    
+    public ArrayList<Product> getInventory();
+    
+    public boolean writeInventory(ArrayList<Product> lista);
 
 }
