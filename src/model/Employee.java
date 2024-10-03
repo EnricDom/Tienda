@@ -1,8 +1,6 @@
 package model;
 
 
-import java.sql.SQLException;
-
 import dao.Dao;
 import dao.DaoImplJDBC;
 import exception.EmployeeNotFoundException;
@@ -52,7 +50,7 @@ public class Employee extends Person implements Logable{
 				logged = true;
 			}
 			dao.disconnect();
-		} catch (EmployeeNotFoundException | InvalidPasswordException | SQLException e) {
+		} catch (EmployeeNotFoundException | InvalidPasswordException e) {
 			System.out.println("Login incorrecto");
 		} 
 		return logged;

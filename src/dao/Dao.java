@@ -1,6 +1,5 @@
 package dao;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import exception.EmployeeNotFoundException;
@@ -10,7 +9,7 @@ import model.Product;
 
 public interface Dao {
 	
-    public void connect() throws SQLException;
+    public void connect() ;
     
     public Employee getEmployee(int employeeId, String password) throws EmployeeNotFoundException, InvalidPasswordException;
     

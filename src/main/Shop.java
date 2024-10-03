@@ -6,11 +6,7 @@ import model.Employee;
 import model.Product;
 import model.Sale;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -21,9 +17,6 @@ import java.util.Scanner;
 
 import dao.Dao;
 import dao.DaoImplFile;
-import dao.DaoImplJDBC;
-import exception.EmployeeNotFoundException;
-import exception.InvalidPasswordException;
 
 public class Shop {
 
