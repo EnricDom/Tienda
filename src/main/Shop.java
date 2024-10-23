@@ -17,6 +17,7 @@ import java.util.Scanner;
 
 import dao.Dao;
 import dao.DaoImplFile;
+import dao.DaoImplXml;
 
 public class Shop {
 
@@ -33,7 +34,7 @@ public class Shop {
 		sales = new ArrayList<Sale>();
 		cash = new Amount(0.0);
 		employee = new Employee(null, 0, null);
-		dao = new DaoImplFile();
+		dao = new DaoImplXml();
 	}
 
 	/**
