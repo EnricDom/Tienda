@@ -48,7 +48,8 @@ public class SaxReader extends DefaultHandler {
 		case "product":
 			break;
 		case "wholesalerPrice":
-			this.product.setPublicPrice(Float.valueOf(value));
+			this.product.setWholesalerPrice(Float.valueOf(value));
+			this.product.setPublicPrice(2*this.product.getWholesalerPrice());
 			break;
 		case "stock":
 			this.product.setStock(Integer.valueOf(value));
