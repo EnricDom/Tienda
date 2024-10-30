@@ -15,7 +15,7 @@ import model.Employee;
 import model.Product;
 
 public class DaoImplFile implements Dao {
-	
+
 	public ArrayList<Product> inventory;
 
 	@Override
@@ -45,9 +45,9 @@ public class DaoImplFile implements Dao {
 			String rutaArchivo = "Files" + File.separator + "inputInventory.txt";
 			File txt = new File(rutaArchivo);
 			String rutaAbsoluta = txt.getAbsolutePath();
-			
+
 			File archivo = new File(rutaAbsoluta);
-			
+
 			if (archivo.canRead()) {
 				FileReader fr = null;
 				fr = new FileReader(archivo);
@@ -71,7 +71,7 @@ public class DaoImplFile implements Dao {
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
-		}		
+		}
 	}
 
 	@Override
@@ -81,29 +81,29 @@ public class DaoImplFile implements Dao {
 
 		// Aquí obtenemos el formato que deseamos
 		String formatDate = new SimpleDateFormat("yyyy-MM-dd").format(myDate);
-		
+
 		try {
 
 			String rutaArchivo = "Files" + File.separator + "inventory_" + formatDate + ".txt";
 			File txt = new File(rutaArchivo);
 			String rutaAbsoluta = txt.getAbsolutePath();
-			
-            PrintWriter file = new PrintWriter(rutaAbsoluta);
-            int i = 1;
-            for (Product product : lista) {
-				if (product != null) {	
+
+			PrintWriter file = new PrintWriter(rutaAbsoluta);
+			int i = 1;
+			for (Product product : lista) {
+				if (product != null) {
 					file.println(i + ";Product:" + product.getName() + ";Stock:" + product.getStock() + ";");
 					i++;
 				}
 			}
-            file.println("Numero total de productos:" + (i-1));
-            file.close();
-            return true;
+			file.println("Numero total de productos:" + (i - 1));
+			file.close();
+			return true;
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        } 
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

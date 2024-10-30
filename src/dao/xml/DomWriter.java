@@ -25,10 +25,9 @@ import org.w3c.dom.Element;
 import model.Product;
 
 public class DomWriter {
-	
 
 	private Document document;
-	
+
 	public DomWriter() {
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newDefaultInstance();
@@ -38,68 +37,67 @@ public class DomWriter {
 		} catch (ParserConfigurationException e) {
 			System.out.println("ERROR generating document");
 		}
-	}	
+	}
 
 	public boolean generateDocument(ArrayList<Product> inventory) {
-		
+
 		boolean generated = false;
-		
-		//PARENT NODE
-		//root node
+
+		// PARENT NODE
+		// root node
 		Element products = document.createElement("products");
 		products.setAttribute("total", "" + inventory.size());
 		document.appendChild(products);
-		
-		
-		for(int i = 0; i<inventory.size(); i++) {
-			//CHILD NODES
-			//child node into root node "products"
+
+		for (int i = 0; i < inventory.size(); i++) {
+			// CHILD NODES
+			// child node into root node "products"
 			Element product = document.createElement("product");
-			product.setAttribute("id", "" + (i+1));
+			product.setAttribute("id", "" + (i + 1));
 			products.appendChild(product);
-			
-			//FINAL NODES
-			//child into product with attribute and content
+
+			// FINAL NODES
+			// child into product with attribute and content
 			Element name = document.createElement("name");
 			name.setTextContent(inventory.get(i).getName());
 			product.appendChild(name);
-			
-			//child into product with 2 attributes and content
+
+			// child into product with 2 attributes and content
 			Element price = document.createElement("price");
 			price.setAttribute("currency", "€");
 			price.setTextContent("" + inventory.get(i).getWholesalerPrice());
 			product.appendChild(price);
-			
-			//child into product with 2 attributes and content
+
+			// child into product with 2 attributes and content
 			Element stock = document.createElement("stock");
 			stock.setTextContent("" + inventory.get(i).getStock());
 			product.appendChild(stock);
-			
+
 		}
-		
+
 		generated = generateXml();
 		return generated;
 	}
-	
+
 	private boolean generateXml() {
 		boolean generated = false;
-		try {			
+		try {
 			TransformerFactory factory = TransformerFactory.newInstance();
 			Transformer transformer = factory.newTransformer();
-			
+
 			Source source = new DOMSource(document);
-			
+
 			// Obtenemos y guardamos la fecha del sistema
 			Date myDate = new Date();
 
 			// Aquí obtenemos el formato que deseamos
 			String formatDate = new SimpleDateFormat("yyyy-MM-dd").format(myDate);
-			
+
 			File file = new File("Files" + File.separator + "inventory_" + formatDate + ".xml");
 			FileWriter fw = new FileWriter(file);
 			PrintWriter pw = new PrintWriter(fw);
 			Result result = new StreamResult(pw);
-			
+
 			transformer.transform(source, result);
 			generated = true;
 		} catch (IOException e) {

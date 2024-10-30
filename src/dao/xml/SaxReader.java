@@ -9,7 +9,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import model.Product;
 
 public class SaxReader extends DefaultHandler {
-	
+
 	private ArrayList<Product> products;
 	private Product product;
 	private String value;
@@ -21,7 +21,7 @@ public class SaxReader extends DefaultHandler {
 	public ArrayList<Product> getProducts() {
 		return products;
 	}
-	
+
 	@Override
 	public void startDocument() throws SAXException {
 		this.products = new ArrayList<>();
@@ -31,7 +31,8 @@ public class SaxReader extends DefaultHandler {
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		switch (qName) {
 		case "product":
-			this.product = new Product(attributes.getValue("name") != null ? attributes.getValue("name") : "empty", 0, true, 0);
+			this.product = new Product(attributes.getValue("name") != null ? attributes.getValue("name") : "empty", 0,
+					true, 0);
 			break;
 		case "wholesalerPrice":
 			break;
@@ -49,7 +50,7 @@ public class SaxReader extends DefaultHandler {
 			break;
 		case "wholesalerPrice":
 			this.product.setWholesalerPrice(Float.valueOf(value));
-			this.product.setPublicPrice(2*this.product.getWholesalerPrice());
+			this.product.setPublicPrice(2 * this.product.getWholesalerPrice());
 			break;
 		case "stock":
 			this.product.setStock(Integer.valueOf(value));

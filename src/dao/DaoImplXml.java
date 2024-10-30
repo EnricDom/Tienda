@@ -17,8 +17,8 @@ import model.Product;
 import dao.xml.SaxReader;
 import dao.xml.DomWriter;
 
-public class DaoImplXml implements Dao{
-	
+public class DaoImplXml implements Dao {
+
 	public ArrayList<Product> inventory;
 
 	@Override
@@ -27,7 +27,8 @@ public class DaoImplXml implements Dao{
 	}
 
 	@Override
-	public Employee getEmployee(int employeeId, String password) throws EmployeeNotFoundException, InvalidPasswordException {
+	public Employee getEmployee(int employeeId, String password)
+			throws EmployeeNotFoundException, InvalidPasswordException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -40,14 +41,14 @@ public class DaoImplXml implements Dao{
 	@Override
 	public ArrayList<Product> getInventory() {
 		inventory = new ArrayList<Product>();
-		
+
 		// Read an existing xml document
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		SAXParser parser;
-		
+
 		try {
 			parser = factory.newSAXParser();
-			File file = new File ("Files"+ File.separator +"inventory.xml");
+			File file = new File("Files" + File.separator + "inventory.xml");
 			SaxReader saxReader = new SaxReader();
 			parser.parse(file, saxReader);
 			inventory = saxReader.getProducts();
@@ -65,8 +66,8 @@ public class DaoImplXml implements Dao{
 	@Override
 	public boolean writeInventory(ArrayList<Product> lista) {
 		boolean generated = false;
-		
-		//Create a new xml document
+
+		// Create a new xml document
 		DomWriter domWriter = new DomWriter();
 		generated = domWriter.generateDocument(inventory);
 		return generated;

@@ -29,7 +29,7 @@ public class CashView extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-            Shop shop = new Shop();
+			Shop shop = new Shop();
 
 			CashView dialog = new CashView(shop);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -47,12 +47,12 @@ public class CashView extends JDialog {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
 		setTitle("Caja");
-		
+
 		JLabel lblNewLabel = new JLabel("Dinero en caja: ");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblNewLabel.setBounds(48, 109, 116, 28);
 		getContentPane().add(lblNewLabel);
-		
+
 		textField = new JTextField();
 		textField.setHorizontalAlignment(SwingConstants.RIGHT);
 		textField.setForeground(Color.LIGHT_GRAY);
@@ -63,15 +63,15 @@ public class CashView extends JDialog {
 		getContentPane().add(textField);
 
 		textField.setText(shop.cash.getValue() + " " + shop.cash.getCurrency());
-		
-		// Se vuelve a menú principal cerrando ventana
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
 
-                dispose();
-            }
-        });
+		// Se vuelve a menú principal cerrando ventana
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+
+				dispose();
+			}
+		});
 	}
 
 }
